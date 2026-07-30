@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+    <div class="container pt-5">
+        <div class="row">
+            <div class="card col-10 border-0 shadow-sm bg-white rounded-0">
+                <div class="card-body">
+                    <p class="card-title fs-5 text-uppercase fw-bold mb-3 pt-3 pb-3 border-bottom">Product create</p>
+                    <p class="card-text fs-7">If you already have products, go to the
+                        <a href="/index.php/{{ locale }}/product/list" class="text-black text-decoration-none own-link-hover fw-bold">product site</a>.</p>
+                        {{ form(form) }}
+                </div>
+            </div>
+            <div class="col-2 pe-0">
+                {% include 'link_list.html.twig' %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

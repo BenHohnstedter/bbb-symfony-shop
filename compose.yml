@@ -1,0 +1,13 @@
+version: "3.2"
+services:
+  web:
+    build: .
+    environment:
+      VIRTUAL_HOST: bbb.shop.dev,bbb.bhohnstedter-nb.shop
+    volumes:
+      - .:/var/www/html/
+
+networks:
+  default:
+    name: docker_default
+    external: true

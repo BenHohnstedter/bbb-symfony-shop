@@ -1,0 +1,82 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+    <div class="container mt-3 mb-5">
+
+        {% include 'CheckOut/progressbar.html.twig' %}
+
+        <div class="row justify-content-center d-flex">
+            <div class="col-12 col-xl-10">
+                <h1 class="fw-bold">Kauf abschließen:</h1>
+            </div>
+
+            <div class="col-12 col-xl-10 rounded-3 mb-3">
+                <div class="rounded-3 bg-white p-3">
+                    <table class="table table-bg-white m-0">
+
+                        <thead>
+                            <tr>
+                                <th class="fs-5 w-25 text-break text-black" scope="col">Name</th>
+                                <th class="fs-5 w-25 text-break text-black" scope="col">Einzelpreis in €</th>
+                                <th class="fs-5 w-25 text-break text-black" scope="col">Menge</th>
+                                <th class="fs-5 w-25 text-break text-black" scope="col">Gesamtpreis in €</th>
+                            </tr>
+                        </thead>
+
+                        {% set totalPrice = 0 %}
+                        {% for order in orders %}
+
+                        {% set unitPrice = order.getProduct().getPrice() %}
+                        {% set combinedPrice = unitPrice * order.getAmount() %}
+                        {% set totalPrice = totalPrice + (unitPrice * order.getAmount()) %}
+
+                        <tr>
+                            <td class="own-table-padding text-black">{{ order.getProduct().getName() }}</td>
+                            <td class="own-table-padding-number text-black text-end">{{ unitPrice | number_format(2, '.', ',') }}</td>
+                            <td class="own-table-padding-number text-black text-end">{{ order.getAmount() }} Stk.</td>
+                            <td class="own-table-padding-number text-black text-end">{{ combinedPrice | number_format(2, '.', ',') }}</td>
+                        </tr>
+
+                        {% endfor %}
+                    </table>
+                    <table class="table-bg-white m-0 w-100 mt-3">
+                        <tr>
+                            <td class="own-table-padding w-25"></td>
+                            <td class="own-table-padding w-25"></td>
+                            <td class="own-table-padding w-25"></td>
+                            <td class="own-table-padding w-25">5€ Versand</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-10 mt-3 mb-5">
+                <form method="POST" action="/index.php/{{ locale }}/checkout/checkoutSuccess" class="p-3 bg-white rounded-3">
+
+                    <p class="fs-4 fw-bold m-0">Käufer: {{ principal.getFirstname() }} {{ principal.getLastname() }}</p>
+                    <p class="fs-4 fw-bold m-0">Email: {{ principal.getEmail() }}</p>
+
+                    <div class="container p-0 mb-3">
+                        <div class="row justify-content-between d-flex">
+                            <div class="col-12 col-sm-6 col-lg-4 mt-sm-3 mb-3">
+                                <p class="own-btn bg-white rounded-5 p-2 m-0 text-info fw-bolder text-center">
+                                    Gesamt-Preis: {{ (totalPrice + 5) | number_format(2, '.', ',') }}€
+                                </p>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4 mt-1 mt-sm-3">
+                                <button type="submit" class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100">
+                                    Kaufen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

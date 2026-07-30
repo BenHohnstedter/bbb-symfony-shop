@@ -1,0 +1,148 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main class="container-fluid p-0">
+    <div id="bbbCarousel" class="carousel slide bg-secondary">
+        <div class="carousel-inner">
+            <a href="/index.php/{{ locale }}/product/list/">
+                <div class="carousel-item active">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6 d-flex align-items-center">
+                                <div>
+                                    <p class="fs-5 d-block text-white">Latest Google Tech</p>
+                                    <p class="fs-3 d-block text-white">New Smart Device</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bbb-carousel-height overflow-hidden d-flex align-items-center">
+                                    <img src="/Resource/Img/Placeholder/bbb-carousel2.webp" class="d-block" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="bbb-carousel-height overflow-hidden d-flex align-items-center">
+                                    <img src="/Resource/Img/Placeholder/bbb-carousel1.webp" class="d-block" alt="">
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex align-items-center">
+                                <div class="w-100">
+                                    <p class="fs-5 text-end text-white">The best batteries</p>
+                                    <p class="fs-3 text-end text-white">At the cheapest price</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6 d-flex align-items-center">
+                                <div>
+                                    <p class="fs-5 text-white">IPhone accessories</p>
+                                    <p class="fs-3 text-white">Only here in this store</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bbb-carousel-height overflow-hidden d-flex align-items-center">
+                                    <img src="/Resource/Img/Placeholder/bbb-carousel3.webp" class="d-block img-fluid" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bbbCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon border rounded-1 p-2" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bbbCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon border rounded-1 p-2" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row">
+            <div class="container border-1 bg-white overlapping-container-top p-5 z-1">
+                <div class="row">
+                    <h1 class="text-uppercase fw-bolder fs-4 border-1 border-bottom ps-0 pb-2">Top Products</h1>
+                    <div class="container">
+                        <ul class="row p-0">
+                            {% for product in products %}
+                            <li class="col-3 p-3 list-unstyled">
+                                <article class="h-100">
+                                    <a href="/index.php/{{ locale }}/product/detail/{{ product.getId() }}" class="card bg-white text-decoration-none resize-item-scale d-flex rounded-0">
+                                        <div class="order-2 card-body p-3">
+                                            <div class="d-flex flex-column">
+                                                <h3 class="order-2 card-title fs-6 opacity-75 mt-2 mb-2">{{ product.getName() }}</h3>
+                                                <p class="order-3 card-text text-start m-0">{{ product.getPrice() | number_format(2, '.', ',') }}€</p>
+
+                                                <div class="order-1 pb-2 text-info border-1 border-bottom" title="{{ product.getStarAverage() }} Sternebewertung">
+                                                    {% set stars = product.getStarAverage() %}
+                                                    {% include 'stars.html.twig' %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="order-1 image-size overflow-hidden d-flex justify-content-center bg-white rounded-3 p-4">
+                                            <img src="/Resource/Img/ProductImg/{{ product.getImagePath() }}"
+                                                 alt="{{ product.getName() }}" class="img-fluid object-fit-scale rounded-1">
+                                        </div>
+                                    </a>
+                                </article>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="container border-1 bg-white overlapping-container-bottom p-5 z-1">
+                <div class="row">
+                    <h1 class="text-uppercase fw-bolder fs-4 border-1 border-bottom ps-0 pb-2">Our Awards</h1>
+                    <a href="https://die-revolte.de/awards/" class="text-black text-decoration-none own-link-hover p-0">
+                        To The Trophy Cabinet
+                        <svg width="16" height="16" fill="currentColor" class="bi bi-caret-right mb-1" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                        </svg>
+                    </a>
+                    <div class="container mt-3">
+                        <div class="row">
+                            <div class="col-2 d-flex justify-content-center">
+                                <img src="/Resource/Img/Placeholder/bbb-award1.jpg" alt="" class="img-fluid own-award-height">
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <img src="/Resource/Img/Placeholder/bbb-award2.png" alt="" class="img-fluid own-award-height">
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <img src="/Resource/Img/Placeholder/bbb-award3.png" alt="" class="img-fluid own-award-height">
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <img src="/Resource/Img/Placeholder/bbb-award4.png" alt="" class="img-fluid own-award-height">
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <img src="/Resource/Img/Placeholder/bbb-award5.webp" alt="" class="img-fluid own-award-height">
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <img src="/Resource/Img/Placeholder/bbb-award6.png" alt="" class="img-fluid own-award-height">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

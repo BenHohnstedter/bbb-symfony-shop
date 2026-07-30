@@ -1,0 +1,129 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+    <div  class="container mt-3 mb-5">
+        <div class="row justify-content-center d-flex">
+            <div class="col-12 col-xl-10">
+                <h1 class="fw-bold">Deine Kaufhistorie:</h1>
+            </div>
+
+            {% if userOrders is not defined %}
+            <div class="col-12 col-xl-10">
+                <span class="fs-5">Du hast bis jetzt noch nichts bestellt.</span>
+            </div>
+            {% else %}
+
+            {% set i = 0 %}
+            {% for userOrder in userOrders %}
+            <div class="col-12 col-xl-10 mt-3 mb-3 rounded-3">
+                <button
+                    class="btn bg-white text-info fs-3 fw-bold w-100 rounded-0 rounded-3 p-4"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#orderCollapse{{ i }}"
+                    aria-expanded="false"
+                    aria-controls="orderCollapse{{ i }}"
+                >
+                    Deine Bestellung vom {{ userOrder.getLastUpdate() }} Uhr)
+                </button>
+                <div class="collapse p-0 m-0 bg-white p-3 rounded-bottom-3" id="orderCollapse{{ i }}">
+                    <a href="/Resource/Bill/{{ userOrder.getPdf() }}" download class="btn text-info bg-white rounded-5 p-2 mb-4 fw-bolder w-100">
+                        PDF Download
+                    </a>
+                    <ul>
+                        {% for orderItem in userOrder %}
+                        {% set totalPrice = orderItem.getOrderingItem().getProduct().getPrice() * orderItem.getAmount() %}
+                        <li class="list-unstyled mt-1 mb-1">
+                            <article class="card bg-white rounded-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <a class="col-4 col-lg-2 p-0 bg-white image-size overflow-hidden d-flex justify-content-center rounded-start-3"
+                                           href="/index.php/{{ locale }}/product/detail/{{ orderItem.getProduct().getId() }}" target="_blank">
+                                            <img src="https://bbb.shop.dev/Resource/Img/ProductImg/{{ orderItem.getProduct().getImagePath() }}"
+                                                 alt="Produkt {{ orderItem.getProduct().getName() }}" class="img-fluid object-fit-scale p-2">
+                                        </a>
+                                        <div class="col-8 col-lg-10">
+                                            <div class="container h-100">
+                                                <ul class="row p-0 align-items-center d-flex h-100">
+                                                    <li class="col-12 col-lg-3 fs-5 list-unstyled p-1">
+                                                        <a class="text-white text-decoration-none"
+                                                           href="/index.php/{{ locale }}/product/detail/{{ orderItem.getProduct().getId() }}" target="_blank">
+                                                            {{ orderItem.getProduct().getName() }}
+                                                        </a>
+                                                    </li>
+                                                    <li class="col-12 col-lg-3 fs-5 list-unstyled p-1">
+                                                        Einzelpreis: {{ orderItem.getProduct().getPrice() }}€
+                                                    </li>
+                                                    <li class="col-12 col-lg-3 fs-5 list-unstyled p-1">
+                                                        Menge: {{ orderItem.getAmount() }} Stk.
+                                                    </li>
+                                                    <li class="col-12 col-lg-3 fs-5 list-unstyled p-1">
+                                                        Gesamtpreis: {{ totalPrice }}€
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </li>
+                        {% endfor %}
+                        </ul>
+                    <div class="w-100 d-flex justify-content-end">
+                        <span class="fw-bold fs-5 ps-3 pe-3 pt-1 pb-1 bg-white rounded-3">+ 5€ Versand</span>
+                    </div>
+                    </div>
+                </div>
+                {% set i = i + 1%}
+                {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+</main>
+
+
+{#    {% for orderItem in orderItems[i] %}#}
+
+{#        {% set unitPrice = orderItem.getPrice() %}#}
+{#        {% set combinedPrice = unitPrice * orderItem.getAmount() %}#}
+{#        {% set totalPrice = totalPrice + (unitPrice * orderItem.getAmount()) %}#}
+{#        <li class="list-unstyled mt-1 mb-1">#}
+{#            <article class="card bg-white rounded-3">#}
+{#                <div class="container">#}
+{#                    <div class="row">#}
+{#                        <a class="col-4 col-lg-2 p-0 bg-white image-size overflow-hidden d-flex justify-content-center rounded-start-3"#}
+{#                           href="/index.php/{{ locale }}/product/detail/{{ orderItem.getId() }}" target="_blank">#}
+{#                            <img src="https://bbb.shop.dev/Resource/Img/ProductImg/{{ orderItem.getImagePath() }}"#}
+{#                                 alt="Produkt {{ orderItem.getName() }}" class="img-fluid object-fit-scale p-2">#}
+{#                        </a>#}
+{#                        <div class="col-8 col-lg-10">#}
+{#                            <div class="container h-100">#}
+{#                                <ul class="row p-0 align-items-center d-flex h-100">#}
+{#                                    <li class="col-12 col-lg-3 fs-5 list-unstyled p-1">#}
+{#                                        <a class="text-white text-decoration-none"#}
+{#                                           href="/index.php/{{ locale }}/product/detail/{{ orderItem.getId() }}" target="_blank">#}
+{#                                            {{ orderItem.getName() }}#}
+{#                                        </a>#}
+{#                                    </li>#}
+{#                                    <li class="col-12 col-lg-3 fs-5 list-unstyled p-1">#}
+{#                                        Einzelpreis: {{ unitPrice | number_format(2, '.', ',') }}€#}
+{#                                    </li>#}
+{#                                    <li class="col-12 col-lg-3 fs-5 list-unstyled p-1">#}
+{#                                        Menge: {{ orderItem.getAmount() }} Stk.#}
+{#                                    </li>#}
+{#                                    <li class="col-12 col-lg-3 fs-5 list-unstyled p-1">#}
+{#                                        Gesamtpreis Produkt: {{ combinedPrice | number_format(2, '.', ',') }}€#}
+{#                                        Gesamtpreis Bestellung: {{ totalPrice | number_format(2, '.', ',') }}€#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </article>#}
+{#        </li>#}
+{#    {% endfor %}#}
+
+{% endblock %}

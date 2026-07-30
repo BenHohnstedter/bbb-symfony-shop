@@ -1,0 +1,108 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+    <div class="container mt-3 mb-5">
+        {% include 'CheckOut/progressbar.html.twig' %}
+
+        <div class="row justify-content-center d-flex">
+            <div class="col-12 col-xl-10">
+                <h1 class="fw-bold">Dein Warenkorb:</h1>
+            </div>
+
+                {% if products == null %}
+                <div class="col-12 col-xl-10 mt-3 mb-5">
+                    <p class="fs-3">...ist noch leer</p>
+                    <a href="/index.php" class=" btn text-info bg-white rounded-5 fw-bolder">
+                        Finde Produkte, die dir gefallen
+                    </a>
+                </div>
+                {% else %}
+
+                <ul class="row p-0 justify-content-center d-flex">
+
+                    {% set totalPrice = 0 %}
+                    {% for product in products %}
+
+                    {% set unitPrice = product.getProduct().getPrice() %}
+                    {% set combinedPrice = unitPrice * product.getAmount() %}
+                    {% set totalPrice = totalPrice + (unitPrice * product.getAmount()) %}
+
+                    <li class="col-12 col-xl-10 list-unstyled mt-2 mb-2">
+                        <article class="card bg-white">
+                            <div class="container">
+                                <div class="row">
+                                    <a class="col-4 col-lg-3 p-0 bg-white image-size overflow-hidden d-flex justify-content-center rounded-1"
+                                       href="/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" target="_blank">
+                                        <img src="https://bbb.shop.dev/Resource/Img/ProductImg/{{ product.getProduct().getImagePath() }}"
+                                             alt="Produkt {{ product.getProduct().getName() }}" class="img-fluid object-fit-scale p-2">
+                                    </a>
+                                    <div class="col-8 col-lg-9 ps-4 p-2">
+                                        <div class="mb-3 mt-2">
+                                            <a class="fs-3 text-black text-decoration-none"
+                                               href="/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" target="_blank">
+                                                {{ product.getProduct().getName() }}</a>
+                                        </div>
+                                        <table>
+                                            <tbody class="fs-6 fw-bolder">
+                                            <tr>
+                                                <th scope="row">Kategorie:</th>
+                                                <td class="ps-3">{{ product.getProduct().getCategoryObject().getName() }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Ort:</th>
+                                                <td class="ps-3">{{ product.getProduct().getUserObject().getCity() }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Verkäufer:</th>
+                                                <td class="ps-3">{{ product.getProduct().getUserObject().getUsername() }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Einzelpreis:</th>
+                                                <td class="ps-3">{{ unitPrice | number_format(2, '.', ',') }}€</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Gesamtpreis:</th>
+                                                <td class="ps-3">{{ combinedPrice | number_format(2, '.', ',') }}€</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Menge:</th>
+                                                <td class="ps-3">{{ product.getAmount() }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="mt-1">
+                                            <a href="/index.php/{{ locale }}/checkout/delete/{{ product.getProduct().getId() }}" class="text-info">Löschen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+
+            <div class="col-12 col-xl-10">
+                <div class="container p-0">
+                    <div class="row justify-content-between d-flex">
+                        <div class="col-12 col-md-6 col-lg-5 col-xxl-4 mb-3">
+                            <p class="own-btn bg-white rounded-5 p-2 m-0 text-info fw-bolder text-center">
+                                Gesamt: {{ totalPrice | number_format(2, '.', ',') }}€ - ({{ totalAmount }} Artikel)
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-5 col-xxl-4">
+                            <a class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100" href="/index.php/{{ locale }}/checkout/checkAddress">
+                                Adresse prüfen
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,218 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% if user.isSeller() %}
+    {% set userType = 'Verkäufer' %}
+    {% set place = 'Versandort' %}
+{% else %}
+    {% set userType = 'Nutzer' %}
+    {% set place = 'Wohnort' %}
+{% endif %}
+<main class="container-fluid mt-3">
+
+    <form action="/index.php/{{ locale }}/user/update/{{ principal.getId() }}" method="POST" enctype="multipart/form-data" class="row ps-3 pe-3">
+        <div class="col-12 mt-3">
+            <div class="border border-white border-3 bg-white rounded-3 p-3">
+                <div class="container-fluid p-0">
+                    <div class="row">
+
+                        <div class="col-12 col-md-6 col-lg-4 d-flex">
+                            <div class="container-fluid h-100">
+                                <div class="row justify-content-center d-flex h-100">
+                                    <div class="col-10 col-lg-8 col-xxl-6">
+                                        <img src="/Resource/Img/UserImg/{{ principal.getProfileImg() }}" alt="Profil Bild von {{ principal.getUsername() }}"
+                                             class="overflow-hidden img-fluid image-size object-fit-cover rounded-circle mt-4 mb-4 w-100">
+                                    </div>
+                                    <div class="col-12 d-flex">
+                                        <div class="mt-4 mb-4 bg-secondary align-self-end w-100">
+                                            <label for="imagePath" class="visually-hidden">*Profilbild ändern (JPG/JPEG/PNG):</label>
+                                            <input
+                                                type="file"
+                                                id="imagePath"
+                                                name="imagePath"
+                                                minlength="1"
+                                                maxlength="255"
+                                                autocomplete="off"
+                                                class="form-control text-black rounded-1 ps-3 p-2 bg-white"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="container-fluid h-100">
+                                <div class="row h-100">
+                                    <div class="col-12">
+                                        <!-- SALES PLACE -->
+                                        <div class="input-group mt-4 mb-4">
+                                            <span class="input-group-text">
+                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/buildings-fill.svg" alt="adresse icon">
+                                            </span>
+                                            <div class="form-control container-fluid p-0">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-8 pe-sm-0">
+                                                        <label for="street" class="visually-hidden">Straße</label>
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            id="street"
+                                                            name="street"
+                                                            minlength="3"
+                                                            maxlength="35"
+                                                            autocomplete="off"
+                                                            placeholder="Straße"
+                                                            aria-label="street"
+                                                            aria-describedby="street"
+                                                            class="form-control bg-white text-black fs-5 rounded-0"
+                                                            value="{{ principal.getStreet() }}"
+                                                        >
+                                                    </div>
+
+                                                    <div class="col-12 col-sm-4 ps-sm-0">
+                                                        <label for="houseNumber" class="visually-hidden">Hausnummer</label>
+                                                        <input
+                                                            required
+                                                            type="number"
+                                                            id="houseNumber"
+                                                            name="houseNumber"
+                                                            min="1"
+                                                            max="9999"
+                                                            autocomplete="off"
+                                                            placeholder="Hausnummer"
+                                                            aria-label="houseNumber"
+                                                            aria-describedby="houseNumber"
+                                                            class="form-control bg-white text-black fs-5 rounded-0"
+                                                            value="{{ principal.getHouseNumber() }}"
+                                                        >
+                                                    </div>
+
+                                                    <div class="col-12 col-sm-8 pe-sm-0">
+                                                        <label for="city" class="visually-hidden">Stadt</label>
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            id="city"
+                                                            name="city"
+                                                            minlength="3"
+                                                            maxlength="35"
+                                                            autocomplete="off"
+                                                            placeholder="Stadt"
+                                                            aria-label="city"
+                                                            aria-describedby="city"
+                                                            class="form-control bg-white text-black fs-5 rounded-0"
+                                                            value="{{ principal.getCity() }}"
+                                                        >
+                                                    </div>
+
+                                                    <div class="col-12 col-sm-4 ps-sm-0">
+                                                        <label for="postalCode" class="visually-hidden">Postleitzahl</label>
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            id="postalCode"
+                                                            name="postalCode"
+                                                            minlength="5"
+                                                            maxlength="5"
+                                                            autocomplete="off"
+                                                            placeholder="Postleitzahl"
+                                                            aria-label="postalCode"
+                                                            aria-describedby="postalCode"
+                                                            class="form-control bg-white text-black fs-5 rounded-0"
+                                                            value="{{ principal.getPostalCode() }}"
+                                                        >
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 h-100">
+                                        <!-- CAPTION -->
+                                        <div class="input-group mt-4 mb-4 own-edit-user-textarea-height">
+                                            <span class="input-group-text" id="caption">
+                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/card-text.svg" alt="caption icon">
+                                            </span>
+                                            <label for="caption" class="visually-hidden">Beschreibung</label>
+                                            <textarea
+                                                required
+                                                name="caption"
+                                                minlength="3"
+                                                maxlength="1000"
+                                                autocomplete="off"
+                                                placeholder="Beschreibung"
+                                                aria-label="caption"
+                                                aria-describedby="caption"
+                                                class="form-control bg-white text-black fs-5"
+                                            >{{ principal.getCaption() }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-4">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12 col-md-4 col-lg-12">
+                                        <div class="input-group mt-4 mb-4 user-edit-filter">
+                                            <span class="input-group-text">
+                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/person-fill.svg" alt="username icon">
+                                            </span>
+                                            <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getUsername() }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-lg-12">
+                                        <div class="input-group mt-4 mb-4 user-edit-filter">
+                                            <span class="input-group-text">
+                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/person-raised-hand.svg" alt="firstname icon">
+                                            </span>
+                                            <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getFirstname() }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-lg-12">
+                                        <div class="input-group mt-4 mb-4 user-edit-filter">
+                                            <span class="input-group-text">
+                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/person-vcard-fill.svg" alt="lastname icon">
+                                            </span>
+                                            <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getLastname() }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-lg-12">
+                                        <div class="input-group mt-4 mb-4 user-edit-filter">
+                                            <span class="input-group-text">
+                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/cake2-fill.svg" alt="birthday icon">
+                                            </span>
+                                            <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getBirthday() | date("m.d.Y") }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-lg-12">
+                                        <div class="input-group mt-4 mb-4 user-edit-filter">
+                                            <span class="input-group-text">
+                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/envelope-fill.svg" alt="email icon">
+                                            </span>
+                                            <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getEmail() }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center mt-3 mb-3">
+                <div class="col-6 col-lg-4">
+                    <button type="submit" name="submit" class="btn text-info bg-white rounded-5 w-100 fw-bolder">
+                        Änderungen Speichern!
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</main>
+
+{% endblock %}

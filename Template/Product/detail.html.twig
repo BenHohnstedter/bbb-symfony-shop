@@ -1,0 +1,218 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+
+    {% include 'Map/product_detail_map.html.twig' %}
+
+    <div class="container mt-3 mb-3 pt-2 pb-2 bg-white shadow-sm">
+        <a href="/index.php" class="pe-3 text-black own-link-hover text-decoration-none border-1 border-end border-black">
+            <svg width="20" height="20" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+            </svg>
+        </a>
+        <span class="ps-3 pe-3 text-black own-link-hover text-decoration-none border-1 border-end border-black">
+            Product
+        </span>
+        <input type="hidden" name="filter[category][]" value="{{ product.getCategoryObject().getId() }}" form="filter">
+        <button type="submit" class="ps-3 border-0 bg-white p-0 own-link-hover"
+                title="Produkte von Kategorie: {{ product.getCategoryObject().getName() }} ansehen."
+                form="filter">
+            {{ product.getCategoryObject().getName() }}
+        </button>
+    </div>
+
+    <section class="container p-0">
+        <div class="card bg-white rounded-0 border-0 shadow-sm">
+            <div class="row g-0">
+                <div class="col-12 col-lg-6 bg-white rounded-start-3 d-flex justify-content-center align-items-center">
+                    <div class="w-100 m-3 border d-flex justify-content-center detail-img-height">
+                        <div class="position-relative image-size overflow-hidden d-flex justify-content-center h-100 bg-white detail-hover">
+                            <img src="/Resource/Img/ProductImg/{{ product.getImagePath() }}"
+                                 alt="{{ product.getName() }}" class="img-fluid object-fit-scale product-img  p-5">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 border-1 border-bottom pt-2 pb-2 ps-0 pe-0">
+                                    <h1 class="card-title fs-5 fw-bolder text-info pb-2 mb-3 border-1 border-bottom text-uppercase">{{ product.getName() }}</h1>
+                                    <table>
+                                        <tbody class="fs-6">
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Kategorie:</th>
+                                            <td class="ps-5">
+                                                <input type="hidden" name="filter[category][]" value="{{ product.getCategoryObject().getId() }}" form="filter">
+                                                <button type="submit" class="border-0 bg-white p-0 text-info own-invert-link-hover"
+                                                        title="Produkte von Kategorie: {{ product.getCategoryObject().getName() }} ansehen."
+                                                        form="filter">
+                                                    {{ product.getCategoryObject().getName() }}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Ort:</th>
+                                            <td class="ps-5">
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#mapModal" class="border-0 bg-white p-0 text-info own-invert-link-hover"
+                                                   title="Aufklappbare Karte öffnen, für einen besseren Überblick.">
+                                                    {{ product.getUserObject().getCity() }}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Verkäufer:</th>
+                                            <td class="ps-5">
+                                                <a href="/index.php/{{ locale }}/user/detail/{{ product.getUserObject().getId() }}" class="text-info own-invert-link-hover text-decoration-none"
+                                                   title="Produkte vom Verkäufer: {{ product.getUserObject().getUsername() }} ansehen.">
+                                                    {{ product.getUserObject().getUsername() }}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Auf Lager:</th>
+                                            <td class="ps-5">{{ product.getAmount() }} Stk.</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="container border-1 border-bottom pt-2 pb-2 ps-0 pe-0">
+                                    <span class="fs-4 fw-bolder p-0 mt-3 mb-3">
+                                        {{ product.getPrice() | number_format(2) }}€
+                                    </span>
+                                    {% set discount = product.getPrice() * (random(105, 200) / 100) %}
+                                    <span class="text-decoration-line-through ps-2 opacity-75">
+                                        {{ discount | number_format(2) }}€
+                                    </span>
+                                </div>
+
+                                {% if principal.isBuyer() %}
+                                <form method="POST" action="/index.php/{{ locale }}/checkout/add" class="col-12 border-1 border-bottom pt-2 pb-2 ps-0 pe-0">
+                                    <div class="container">
+                                        <div class="row">
+                                            <input
+                                                id="productid"
+                                                name="productid"
+                                                type="hidden"
+                                                value="{{ product.getId() }}"
+                                            >
+                                            <div class="col-12 mb-2 border-1 border-bottom pb-2 p-0">
+                                                <label class="fs-6" for="amount">Menge:</label>
+
+                                                {% if product.getAmount() < 10 %}
+                                                {% set max = product.getAmount() %}
+                                                {% else %}
+                                                {% set max = 10 %}
+                                                {% endif %}
+
+                                                <input
+                                                    required
+                                                   id="amount"
+                                                   name="amount"
+                                                   min="1"
+                                                   max="{{ max }}"
+                                                   type="number"
+                                                   placeholder="Menge"
+                                                   value="1"
+                                                   class="form-control d-inline w-auto pt-1 pb-1 ps-3 pe-1 bg-white fs-6 text-black rounded-0"
+                                                >
+                                            </div>
+
+                                            <div class="col-12 p-0">
+                                                {% if product.getAmount() == 0 %}
+                                                <button class="btn text-info bg-black rounded-0 p-2 own-btn-hover" role="button">
+                                                    Nicht mehr vorrätig!
+                                                </button>
+                                                {% else %}
+                                                <button type="submit" class="btn bg-info rounded-0 p-2 own-btn-hover" role="button">
+                                                    In den Warenkorb
+                                                </button>
+                                                {% endif %}
+
+                                                {% if isOnWishlist == NULL %}
+                                                <a href="/index.php/{{ locale }}/wishlist/add/{{ product.getId() }}"
+                                                   class="btn bg-info text-black rounded-0 p-2 ps-3 pe-3 own-btn-hover">
+                                                    <svg xmlns="" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                                    </svg>
+                                                </a>
+                                                {% else %}
+                                                <a href="/index.php/{{ locale }}/wishlist/delete/{{ product.getId() }}"
+                                                   class="btn bg-info text-black rounded-0 p-2 ps-3 pe-3 own-btn-hover">
+                                                    <svg xmlns="" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                                    </svg>
+                                                </a>
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                {% endif %}
+
+                                {% if principal.isSeller() and principal.getId() == product.getUserObject().getId() %}
+                                <div class="col-12 border-1 border-bottom pt-2 pb-2 ps-0 pe-0">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 p-0">
+                                                <a class="col btn bg-info rounded-0 p-2 own-btn-hover"
+                                                   href="/index.php/{{ locale }}/product/edit/{{ product.getId() }}">
+                                                    Bearbeiten
+                                                </a>
+                                                <a class="col btn bg-info rounded-0 p-2 own-btn-hover"
+                                                   href="/index.php/{{ locale }}/product/delete/{{ product.getId() }}">
+                                                    Löschen
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endif %}
+
+                                <div class="col-12 text-info border-1 border-bottom mb-3 pt-2 pb-2 ps-0 pe-0 d-flex align-items-center">
+                                    {% set stars = product.getStarAverage() %}
+                                    {% include 'stars.html.twig' %}
+                                    {% include 'Review/add.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container p-3">
+                <div class="border">
+                    <ul class="nav nav-tabs border-bottom pt-3 ps-3 pe-3" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="active text-black own-link-hover own-active-nav-underline text-decoration-none border-top-0 border-start-0 border-end-0 bg-white ps-2 pe-2 mb-2 me-2"
+                               id="simple-tab-0" data-bs-toggle="tab" href="#simple-tabpanel-0" role="tab" aria-controls="simple-tabpanel-0" aria-selected="true">
+                                Informationen
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="text-black own-link-hover own-active-nav-underline text-decoration-none border-top-0 border-start-0 border-end-0 bg-white ps-2 pe-2 mb-2 ms-2"
+                               id="simple-tab-1" data-bs-toggle="tab" href="#simple-tabpanel-1" role="tab" aria-controls="simple-tabpanel-1" aria-selected="false">
+                                Rezensionen
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3" id="tab-content">
+                        <div class="tab-pane p-2 active" id="simple-tabpanel-0" role="tabpanel" aria-labelledby="simple-tab-0">
+                            <p class="m-0">{{ product.getDescription() }}</p>
+                        </div>
+                        <div class="tab-pane p-2" id="simple-tabpanel-1" role="tabpanel" aria-labelledby="simple-tab-1">
+                            {% include 'Review/list.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

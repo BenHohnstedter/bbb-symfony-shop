@@ -1,0 +1,64 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+    <div class="container mt-3 mb-5">
+        {% include 'CheckOut/progressbar.html.twig' %}
+
+        <div class="row justify-content-center d-flex">
+            <div class="col-12 col-xl-10">
+                <h1 class="fw-bold">Adressen:</h1>
+            </div>
+
+            {% include 'Map/check_out_map.html.twig' %}
+
+            <h2 class="col-12 fw-bold mt-3 mb-3 ps-4 pe-4">Anschrift:</h2>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-6 mb-3 ps-4 pe-4">
+                        <table>
+                            <tbody class="fs-6 fw-bolder">
+                            <tr class="fs-5">
+                                <th scope="row">Anrede:</th>
+                                <td class="ps-3 w-75">{{ principal.getFirstname() }} {{ principal.getLastname() }}</td>
+                            </tr>
+                            <tr class="fs-5">
+                                <th scope="row">Straße:</th>
+                                <td class="ps-3 w-75">{{ principal.getStreet() }} {{ principal.getHouseNumber() }}</td>
+                            </tr>
+                            <tr class="fs-5">
+                                <th scope="row">Stadt:</th>
+                                <td class="ps-3 w-75">{{ principal.getCity() }} {{ principal.getPostalCode() }}</td>
+                            </tr>
+                            <tr class="fs-5">
+                                <th scope="row">Email:</th>
+                                <td class="ps-3 w-75">{{ principal.getEmail() }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="container">
+                            <div class="row justify-content-end">
+                                <div class="col-12 col-lg-8 mb-3">
+                                    <a class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100" href="/index.php/{{ locale }}/user/edit">
+                                        Bearbeiten
+                                    </a>
+                                </div>
+                                <div class="col-12 col-lg-8 mt-sm-3 mb-3">
+                                    <a class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100" href="/index.php/{{ locale }}/checkout/confirmPurchase">
+                                        Kauf abschließen + 5€ Versand
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% if user.isSeller() %}
+    {% set userType = 'Verkäufer' %}
+    {% set place = 'Versandort' %}
+    {% set heading = 'Produkt-Palette' %}
+    {% set products = attribute(user, 'getProducts') %}
+{% else %}
+    {% set userType = 'Nutzer' %}
+    {% set place = 'Wohnort' %}
+    {% set heading = 'Wunschliste' %}
+    {% set products = wishlist %}
+{% endif %}
+
+<main class="container-fluid mt-5 pt-3">
+    <div class="row ps-3 pe-3 justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4 mt-3 pb-3">
+            <div class="border border-white border-3 bg-white rounded-3 p-3">
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-4 col-xxl-2 pe-0">
+                            <img src="https://bbb.shop.dev/Resource/Img/UserImg/{{ user.getProfileImg() }}" alt="{{ user.getUsername() }} Profilbild"
+                                 class="overflow-hidden img-fluid image-size object-fit-cover rounded-circle">
+                        </div>
+                        <div class="col-8 col-xxl-10 align-items-center d-flex">
+                            <div>
+                                <p class="fs-5 m-0">
+                                    {{ userType }}
+                                </p>
+                                <hr class="m-0 opacity-100">
+                                <p class="fs-3 m-0 text-break">
+                                    {{ user.getUsername() }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <span class="fs-5 m-0">{{ place }}</span>
+                            <span class="fs-5">{{ user.getCity() }}</span>
+                        </div>
+                        <div class="col-12 mt-1">
+                            <p class="fs-5 m-0">Beschreibung:</p>
+                            <p class="m-0">{{ user.getCaption() }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if user.getId() == principal.getId() %}
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center mt-3">
+                    <div class="col-8 col-xl-4 mb-5">
+                        <a class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100" href="/index.php/{{ locale }}/user/edit">
+                            Bearbeiten
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+
+        {% if user.isSeller() %}
+            {% set products = attribute(user, 'getProducts') %}
+        <div class="col-12 col-md-6 col-lg-8">
+            <h1 class="fw-bold ps-3 mt-3">Produkt-Palette</h1>
+            <div class="container-fluid">
+                <ul class="row p-0">
+                    {% for product in products %}
+                    {% set outOfOrder = null %}
+                    {% if product.getAmount() == 0 %}
+                    {% set outOfOrder = 'out-of-order-filter' %}
+                    {% endif %}
+                    <li class="col-12 col-sm-12 col-md-6 col-lg-4 col-xxl-3 p-3 list-unstyled {{ outOfOrder }}">
+                        <article class="h-100">
+                            <a href="/index.php/{{ locale }}/product/detail/{{ product.getId() }}" class="card bg-white text-decoration-none resize-item-scale d-flex rounded-0 border-0 shadow-sm">
+                                <div class="order-2 card-body p-3">
+                                    <div class="d-flex flex-column">
+                                        <h3 class="order-2 card-title fs-6 opacity-75 mt-2 mb-2">{{ product.getName() }}</h3>
+                                        <p class="order-3 card-text text-start m-0">{{ product.getPrice() | number_format(2, '.', ',') }}€</p>
+
+                                        <div class="order-1 pb-2 text-info border-1 border-bottom" title="{{ product.getStarAverage() }} Sternebewertung">
+                                            {% set stars = product.getStarAverage() %}
+                                            {% include 'stars.html.twig' %}
+                                        </div>
+                                        <p class="order-4 card-text text-left">{{ product.getAmount() }} Stück noch übrig</p>
+                                    </div>
+                                </div>
+
+                                <div class="order-1 image-size overflow-hidden d-flex justify-content-center bg-white rounded-3 p-4">
+                                    <img src="/Resource/Img/ProductImg/{{ product.getImagePath() }}"
+                                         alt="{{ product.getName() }}" class="img-fluid object-fit-scale rounded-1">
+                                </div>
+                            </a>
+                        </article>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 col-md-6 col-lg-8">
+            <h1 class="fw-bold ps-3 mt-3">Wunschliste</h1>
+            <div class="container-fluid">
+                <ul class="row p-0">
+                    {% for product in wishlist %}
+                        {% set outOfOrder = null %}
+                        {% if product.getProduct().getAmount() == 0 %}
+                            {% set outOfOrder = 'out-of-order-filter' %}
+                        {% endif %}
+                        <li class="col-12 col-sm-12 col-md-6 col-lg-4 col-xxl-3 p-3 list-unstyled {{ outOfOrder }}">
+                            <article class="h-100">
+                                <a href="/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" class="card bg-white text-decoration-none resize-item-scale d-flex rounded-0 border-0 shadow-sm">
+                                    <div class="order-2 card-body p-3">
+                                        <div class="d-flex flex-column">
+                                            <h3 class="order-2 card-title fs-6 opacity-75 mt-2 mb-2">{{ product.getProduct().getName() }}</h3>
+                                            <p class="order-3 card-text text-start m-0">{{ product.getProduct().getPrice() | number_format(2, '.', ',') }}€</p>
+
+                                            <div class="order-1 pb-2 text-info border-1 border-bottom" title="{{ product.getProduct().getStarAverage() }} Sternebewertung">
+                                                {% set stars = product.getProduct().getStarAverage() %}
+                                                {% include 'stars.html.twig' %}
+                                            </div>
+                                            <p class="order-4 card-text text-left">{{ product.getProduct().getAmount() }} Stück noch übrig</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="order-1 image-size overflow-hidden d-flex justify-content-center bg-white rounded-3 p-4">
+                                        <img src="/Resource/Img/ProductImg/{{ product.getProduct().getImagePath() }}"
+                                             alt="{{ product.getProduct().getName() }}" class="img-fluid object-fit-scale rounded-1">
+                                    </div>
+                                </a>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

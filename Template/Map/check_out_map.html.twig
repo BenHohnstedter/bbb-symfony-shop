@@ -1,0 +1,38 @@
+<div class="col-12 col-xl-10">
+    <div class="bg-white rounded-3">
+        <div id="map" class="rounded-3 checkout-map">
+        </div>
+    </div>
+</div>
+
+<script>
+    var map = L.map('map').setView(['{{ principal.getLat() }}', '{{ principal.getLon() }}'], 6);
+
+    L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        minZoom: 3,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var seller = L.icon({
+        iconUrl: '/Resource/Bootstrap-icons-1.11.1/basket3-fill.svg',
+
+        iconSize:     [35, 35], // size of the icon
+        popupAnchor:  [1, -20] // point from which the popup should open relative to the iconAnchor
+    });
+
+    {% for orderItem in order %}
+        var markerSeller = L.marker(['{{ orderItem.getProduct().getUserObject().getLat() }}', '{{ orderItem.getProduct().getUserObject().getLon() }}'], {icon: seller}).addTo(map);
+        markerSeller.bindPopup("Verkäufer - {{ orderItem.getProduct().getUserObject().getUsername() }}: {{ orderItem.getProduct().getUserObject().getStreet() }} {{ orderItem.getProduct().getUserObject().getHouseNumber() }} - {{ orderItem.getProduct().getUserObject().getCity() }}, {{ orderItem.getProduct().getUserObject().getPostalCode() }}").openPopup();
+    {% endfor %}
+
+    var user = L.icon({
+        iconUrl: '/Resource/Bootstrap-icons-1.11.1/geo-alt-fill.svg',
+
+        iconSize:     [35, 35], // size of the icon
+        popupAnchor:  [1, -20] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var markerUser = L.marker(['{{ principal.getLat() }}', '{{ principal.getLon() }}'], {icon: user}).addTo(map);
+    markerUser.bindPopup("Du - {{ principal.getUsername() }}: {{ principal.getStreet() }} {{ principal.getHouseNumber() }} - {{ principal.getCity() }}, {{ principal.getPostalCode() }}").openPopup();
+</script>

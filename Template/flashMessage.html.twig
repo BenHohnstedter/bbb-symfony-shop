@@ -1,0 +1,23 @@
+<div class="position-absolute z-3 w-25 mt-4 start-0">
+    {% for flashGroup in flashes %}
+        {% set keys = flashes|keys %}
+        {% set type = keys[loop.index0] %}
+
+        {% for flash in flashGroup %}
+            <div class="alert alert-{{ type }} alert-dismissible fade show {{ type }}" role="alert">
+                <div>
+                    <p class="fs-5 fw-bold m-0">
+                        <strong>{{ translator.trans(type ~ ".type") }}</strong>
+                    </p>
+                    <p class="m-0">{{ translator.trans(flash) }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            {% if type == 'success' %}
+            <script>
+                {% include 'JS/fade_out_flash_message.js' %}
+            </script>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</div>

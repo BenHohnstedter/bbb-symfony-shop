@@ -1,0 +1,71 @@
+{% if principal.isBuyer() and userReviewToProduct is empty and isOrdered == false %}
+
+<div class="ms-3 ps-3 border-1 border-start border-black">
+    <button type="button" class="btn p-0 bg-white border-0 text-black " data-bs-toggle="modal" data-bs-target="#reviewModal">
+        Rezension schreiben
+    </button>
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="/index.php/{{ locale }}/review/create/{{ product.getId() }}" method="POST"
+              class="modal-content bg-white rounded-0 shadow-sm border-0">
+            <div class="modal-header">
+                <h1 class="modal-title text-black fs-5" id="reviewModalLabel">Deine Rezension zu "{{ product.getName() }}"</h1>
+                <button type="button" class="btn-close invert-img" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div>
+                        <p class="fs-5 m-0 text-black">Sternebewertung</p>
+                        {% for i in 1..5 %}
+                        <input
+                                required
+                                type="radio"
+                                id="star{{ i }}"
+                                name="stars"
+                                value="{{ i }}"
+                        >
+                        <label for="star{{ i }}" class="text-black">{{ i }}</label>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-12 mt-2 mb-2">
+                        <label for="title" class="visually-hidden">Titel</label>
+                        <input
+                                required
+                                id="title"
+                                name="title"
+                                minlength="3"
+                                maxlength="30"
+                                type="text"
+                                placeholder="Titel"
+                                autocomplete="off"
+                                class="fs-5 text-black form-control rounded-0 p-2 bg-white">
+                    </div>
+
+                    <div class="col-12 mt-2 mb-2">
+                        <label for="comment" class="visually-hidden">Text/Inhalt</label>
+                        <textarea
+                                required
+                                id="comment"
+                                name="comment"
+                                minlength="5"
+                                maxlength="1000"
+                                autocomplete="off"
+                                placeholder="deine Meinung zum Produkt"
+                                class="own-textarea-height form-control fs-6 text-black rounded-0 p-2 bg-white w-100"></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="submit" name="submit" class="btn p-2 bg-info text-black rounded-0">
+                    Veröffentlichen
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}

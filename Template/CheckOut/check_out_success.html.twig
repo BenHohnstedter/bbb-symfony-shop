@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+    <div class="container mt-3 mb-5">
+        {% include 'CheckOut/progressbar.html.twig' %}
+
+        <div class="row justify-content-center d-flex mt-5 mb-5">
+            <div class="col-12 col-xl-6 bg-success p-3 rounded-3 mt-5 mb-5">
+
+                <h1 class="fw-bold mt-3 mb-3 text-center">Bestellung abgeschlossen!</h1>
+
+                <p class="text-center fs-5">Bestell-Bestätigung wurde an folgende E-Mail geschickt:<br><b>{{ principal.getEmail() }}</b></p>
+
+                <div class="container mb-3">
+                    <div class="row justify-content-center d-flex">
+                        <div class="col-12 col-sm-4 mt-1 mt-sm-3">
+                            <a href="https://bbb.shop.dev/Resource/Bill/{{ bill }}" download class="btn text-info bg-white rounded-5 p-2 fw-bolder w-100">
+                                PDF Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="container mb-3">
+                <div class="row justify-content-center d-flex">
+                    <div class="col-12 col-sm-4 mt-1 mt-sm-3">
+                        <a href="/index.php" class="btn text-info bg-white rounded-5 p-2 fw-bolder w-100">
+                            Zur Startseite
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

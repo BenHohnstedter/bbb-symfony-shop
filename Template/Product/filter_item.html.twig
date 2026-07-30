@@ -1,0 +1,62 @@
+<div class="m-0">
+    {% set counter = 0 %}
+    {% set lastItem = amounts[filterItem] | length %}
+
+    {% for amounttest in amounts %}
+    <p>{{ amounttest.getName() }}</p>
+    {% endfor %}
+
+    {% for amount in amounts[filterItem] %}
+        {% set counter = counter + 1 %}
+        {% if counter == 4 %}
+            {% set collapseStart %}
+            <div class="collapse" id="{{ filterItem }}_item">
+            <div class="p-0 mb-1">
+            {% endset %}
+        {% else %}
+            {% set collapseStart = null %}
+        {% endif %}
+
+        {% if counter == lastItem and counter >= 4 %}
+            {% set collapseEnd %}
+            </div>
+            </div>
+            <a class="fs-7 text-info text-decoration-none own-invert-link-hover"
+               data-bs-toggle="collapse" href="#{{ filterItem }}_item" role="button">
+                Mehr...
+            </a>
+            {% endset %}
+        {% else %}
+            {% set collapseEnd = null %}
+        {% endif %}
+
+        {% set checked = null %}
+        {% set break = false %}
+
+        {% if filterArray[filterItem] is defined %}
+            {% for filterItemChecked in filterArray[filterItem] %}
+                {% if filterItemChecked == attribute(amount, value) and break == false %}
+                    {% set checked = 'checked' %}
+                    {% set break = true %}
+                {% endif%}
+            {% endfor %}
+        {% endif %}
+
+        {{ collapseStart }}
+        <div class="w-100">
+            <div class="checkbox-wrapper-21">
+                <input type="checkbox"
+                       id="{{ amount.getName() }}"
+                       name="filter[{{ filterItem }}][]"
+                       onclick="document.getElementById('filter').submit();"
+                       value="{{ attribute(amount, value) }}"
+                       form="filter"
+                        {{ checked }}
+                >
+                <label class="fs-6" for="{{ amount.getName() }}">({{ amount.getFilteredAmount() }}) {{ amount.getName() }}</label>
+            </div>
+        </div>
+        {{ collapseEnd }}
+
+    {% endfor %}
+</div>

@@ -1,0 +1,159 @@
+<aside class="navbar navbar-expand-lg col-12 col-lg-3 h-100 d-flex justify-content-center mb-5">
+    <div class="collapse navbar-collapse mb-0" id="filterDiv">
+        <div class="navbar-nav container">
+            <div class="row">
+                <div class="col-12 bg-secondary mb-2 p-0">
+                    <p class="fs-5 text-white fw-bold m-0 p-3">Filterung</p>
+                </div>
+                <fieldset class="col-12 col-sm-4 col-lg-12 border-0 shadow-sm bg-white p-3 mb-2">
+                    <legend class="fs-6 fw-bold mb-2 border-bottom">Kategorien</legend>
+                    {% set filterItem = 'category' %}
+                    {% set value = 'getId' %}
+                    {% include 'Product/filter_item.html.twig' %}
+                </fieldset>
+                <fieldset class="col-12 col-sm-4 col-lg-12 order-lg-0 order-5 border-0 shadow-sm bg-white p-3 mb-2">
+                    <legend class="fs-6 fw-bold mb-2 border-bottom">Preis</legend>
+                    <div class="m-0 p-0">
+
+                        {% if filterArray['orderBy'][0] is defined and filterArray['orderBy'][0] == 'asc' %}
+                        {% set checked = 'checked' %}
+                        {% else %}
+                        {% set checked = null %}
+                        {% endif %}
+
+                        <div class="w-100">
+                            <input
+                                type="radio"
+                               id="ascending"
+                               name="filter[orderBy][]"
+                               onclick="document.getElementById('filter').submit();"
+                               value="asc"
+                               form="filter"
+                               {{ checked }}
+                            >
+                            <label for="ascending">Aufsteigend</label>
+                        </div>
+
+                        {% if filterArray['orderBy'][0] is defined and filterArray['orderBy'][0] == 'desc' %}
+                        {% set checked = 'checked' %}
+                        {% else %}
+                        {% set checked = null %}
+                        {% endif %}
+
+                        <div class="w-100">
+                            <input
+                                type="radio"
+                               id="descending"
+                               name="filter[orderBy][]"
+                               onclick="document.getElementById('filter').submit();"
+                               value="desc"
+                               form="filter"
+                               {{ checked }}
+                            >
+                            <label for="descending">Absteigend</label>
+                        </div>
+                    </div>
+                    <div class="container p-0">
+                        <div class="row">
+                            <div class="col-11 p-0">
+                                {% if filterArray['min'] is defined %}
+                                {% set min = filterArray['min'][0] %}
+                                {% else %}
+                                {% set min = 0 %}
+                                {% endif %}
+
+                                {% if filterArray['max'] is defined  %}
+                                {% set max = filterArray['max'][0] %}
+                                {% else %}
+                                {% set max = 1000 %}
+                                {% endif %}
+
+                                <div id="RangeSlider" class="range-slider pt-1 pb-1">
+                                    <div>
+                                        <div class="range-slider-val-left"></div>
+                                        <div class="range-slider-val-right"></div>
+                                        <div class="range-slider-val-range"></div>
+
+                                        <span class="range-slider-handle range-slider-handle-left"></span>
+                                        <span class="range-slider-handle range-slider-handle-right"></span>
+
+                                        <div class="range-slider-tooltip range-slider-tooltip-left">
+                                            <span class="range-slider-tooltip-text"></span>
+                                        </div>
+
+                                        <div class="range-slider-tooltip range-slider-tooltip-right">
+                                            <span class="range-slider-tooltip-text"></span>
+                                        </div>
+                                    </div>
+
+                                    <input type="range" class="range-slider-input-left" id="min-price" name="filter[min][]" tabindex="0" max="1000" min="0" value="{{ min }}" form="filter">
+                                    <input type="range" class="range-slider-input-right" id="max-price" name="filter[max][]" tabindex="0" max="1000" min="0" value="{{ max }}" form="filter">
+
+                                    <script>
+                                        {% include 'JS/two_handle_input.js' %}
+                                    </script>
+
+                                </div>
+                            </div>
+                            <div class="col-1 p-0 d-flex align-items-center">
+                                <button type="submit" form="filter" class="bg-white border-0 p-0 mx-auto">
+                                    <img src="/Resource/Bootstrap-icons-1.11.1/caret-right-fill.svg" class="star-icon-size">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="col-12 col-sm-4 col-lg-12 order-last order-lg-0 border-0 shadow-sm bg-white p-3 mb-2">
+                    <legend class="fs-6 fw-bold mb-2 border-bottom">Sterne</legend>
+                    <div class="container-fluid p-0">
+                        <div class="d-flex justify-content-start">
+                            {% for i in 1..5 %}
+                                {% set checked = null %}
+                                {% set imgStar = 'star-fill.svg' %}
+                                {% if filterArray['star'] is defined %}
+                                    {% for categoryItem in filterArray['star'] %}
+                                        {% if categoryItem == i %}
+                                            {% set checked = 'checked' %}
+                                            {% set imgStar = 'star-fill-yellow.svg' %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                            <div class="m-1">
+                                <input type="checkbox"
+                                   id="star{{ i }}"
+                                   name="filter[star][]"
+                                   onclick="document.getElementById('filter').submit();"
+                                   value="{{ i }}"
+                                   class="d-none"
+                                   form="filter"
+                                   {{ checked }}
+                                >
+                                <label for="star{{ i }}" class="star-label">
+                                    <img src="/Resource/Bootstrap-icons-1.11.1/{{ imgStar }}" alt="{{ i }} Sternebewertung" class="small-icon">
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="col-12 col-sm-4 col-lg-12 border-0 shadow-sm bg-white p-3 mb-2">
+                    <legend class="fs-6 fw-bold mb-2 border-bottom">Städte</legend>
+                    {% set filterItem = 'city' %}
+                    {% set value = 'getName' %}
+                    {% include 'Product/filter_item.html.twig' %}
+                </fieldset>
+
+                <fieldset class="col-12 col-sm-4 col-lg-12 border-0 shadow-sm bg-white p-3 mb-3">
+                    <legend class="fs-6 fw-bold mb-2 border-bottom">Verkäufer</legend>
+                    {% set filterItem = 'user' %}
+                    {% set value = 'getId' %}
+                    {% include 'Product/filter_item.html.twig' %}
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <button class="navbar-toggler border-0 collapsed w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterDiv" title="Produkt Filterung ausklappen">
+        <img src="/Resource/Bootstrap-icons-1.11.1/caret-down-fill.svg" alt="Produkt Filterung Button" class="icon-size">
+    </button>
+</aside>

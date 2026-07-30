@@ -1,0 +1,48 @@
+{% set icons = {} %}
+{% set paddings = {} %}
+{% set i = 0 %}
+
+{% for stepItem in steps %}
+    {% if stepItem %}
+        {% set icons = icons | merge({ (i) : 'big-icon' }) %}
+        {% set paddings = paddings | merge({ (i) : 'p-4' }) %}
+    {% else %}
+        {% set icons = icons | merge({ (i) : 'icon-size' }) %}
+        {% set paddings = paddings | merge({ (i) : 'p-3' }) %}
+    {% endif %}
+    {% set i = i + 1 %}
+{% endfor %}
+
+<div class="container">
+    <div class="row justify-content-center d-flex">
+        <div class="col-12 col-xl-10 ms-3 me-3">
+            <div class="position-relative">
+                <div class="mt-5 mb-5">
+                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar bg-success" style="width: {{ progress }}%"></div>
+                    </div>
+                </div>
+
+                <div class="z-1 position-absolute top-50 start-0 translate-middle bg-success rounded-circle {{ paddings[0] }}">
+                    <img src="https://bbb.shop.dev/Resource/Bootstrap-icons-1.11.1/cart4.svg" alt="1. Warenkorb" title="1. Warenkorb"
+                         class="invert-img {{ icons[0] }}">
+                </div>
+
+                <div class="z-1 position-absolute top-50 start-33 translate-middle bg-success rounded-circle {{ paddings[1] }}">
+                    <img src="https://bbb.shop.dev/Resource/Bootstrap-icons-1.11.1/geo-alt-fill.svg" alt="2. Adresse bestätigen" title="2. Adresse bestätigen"
+                         class="invert-img {{ icons[1] }}">
+                </div>
+
+                <div class="z-1 position-absolute top-50 start-66 translate-middle bg-success rounded-circle {{ paddings[2] }}">
+                    <img src="https://bbb.shop.dev/Resource/Bootstrap-icons-1.11.1/cash-stack.svg" alt="3. Kauf abschließen" title="3. Kauf abschließen"
+                         class="invert-img {{ icons[2] }}">
+                </div>
+
+                <div class="z-1 position-absolute top-50 start-100 translate-middle bg-success rounded-circle {{ paddings[3] }}">
+                    <img src="https://bbb.shop.dev/Resource/Bootstrap-icons-1.11.1/check2.svg" alt="4. Kauf Abgeschlossen" title="4. Kauf Abgeschlossen"
+                         class="invert-img {{ icons[3] }}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

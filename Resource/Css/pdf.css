@@ -1,0 +1,134 @@
+h1,h2,p,th,td,span {
+    font-family: "Alfa Slab One", "Arial", "sans-serif";
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    margin: 1px;
+    word-break: break-all;
+}
+
+.text-end {
+    text-align: end;
+}
+
+/* Header */
+
+h1 {
+    font-size: 40px;
+    word-break: break-all;
+}
+
+td.header-item-1 {
+    width: 398px;
+}
+
+td.header-item-2 {
+    width: 298px;
+}
+
+.bbb-logo {
+    height: auto;
+    width: 300px;
+}
+
+/* Header */
+
+
+
+/* Contact Blocks */
+
+.inline-block-item {
+    display: inline-block;
+}
+
+td.contact-item-1 {
+    width: 398px;
+}
+
+td.contact-item-2 {
+    width: 300px;
+}
+
+/*    698*/
+
+/* Contact Blocks */
+
+
+
+/* Extra Infos */
+
+.extra-infos {
+    margin: 30px 0;
+}
+
+.extra-info-item-1 {
+    width: 280px;
+
+}
+
+.extra-info-item-2 {
+    width: 300px;
+}
+
+.extra-info-head-1 {
+    width: 115px;
+}
+
+.extra-info-head-2 {
+    width: 50px;
+}
+
+/* Extra Infos */
+
+
+
+/* Products Table */
+
+table.header-border {
+    margin: 20px 0;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+}
+
+td.h2-font-size {
+    font-size: 30px;
+}
+
+table.products-table {
+    margin: 10px 0 30px 0;
+}
+
+td.product-item-1 {
+    width: 250px;
+}
+
+td.product-item-2 {
+    width: 145px;
+}
+
+td.product-item-3 {
+    width: 150px;
+}
+
+td.product-item-3 {
+    width: 150px;
+}
+
+/* Products Table */
+
+hr{
+    height: 1px;
+    border:0;
+    border-top: 15px solid #2A2A2A;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}

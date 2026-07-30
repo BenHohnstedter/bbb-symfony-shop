@@ -1,0 +1,324 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+
+    <div class="container mt-3 mb-3 pt-2 pb-2 bg-white shadow-sm">
+        <a href="/index.php" class="pe-3 text-black own-link-hover text-decoration-none border-1 border-end border-black">
+            <svg width="20" height="20" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+            </svg>
+        </a>
+        <span class="ps-3 pe-3 text-black own-link-hover border-1 border-end border-black">
+            User
+        </span>
+        <a href="/index.php/{{ locale }}/user/login" class="ps-3 pe-3 text-black text-decoration-none own-link-hover">
+            Register
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="card col-10 border-0 shadow-sm bg-white rounded-0 ">
+                <div class="card-body">
+                    <p class="card-title fs-5 text-uppercase fw-bold mb-3 pt-3 pb-3 border-bottom">register account</p>
+                    <p class="card-text fs-7">If you already have an account with us, please login at the
+                        <a href="/index.php/{{ locale }}/user/login" class="text-black text-decoration-none own-link-hover fw-bold">login page</a>.</p>
+                    <form action="/index.php/{{ locale }}/user/create" method="POST">
+                        <p class="card-subtitle text-info fs-5 border-bottom pb-2 mb-2">Your Personal Details</p>
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="userType" class="fs-6 text-end w-100"><span class="text-danger">*</span> User Type</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="input-group-text bg-white col rounded-0">
+                                                <input
+                                                        required
+                                                        type="radio"
+                                                        name="userType"
+                                                        id="seller"
+                                                        value="1"
+                                                        class="form-check own-input-radio"
+                                                >
+                                                <label for="seller" class="bg-white text-black fs-6 w-100 ps-3 text-start">Seller</label>
+                                            </div>
+
+                                            <div class="input-group-text bg-white col rounded-0">
+                                                <input
+                                                        required
+                                                        type="radio"
+                                                        name="userType"
+                                                        id="user"
+                                                        value="0"
+                                                        class="form-check own-input-radio"
+                                                >
+                                                <label for="user" class="bg-white text-black fs-6 w-100 ps-3 text-start">Buyer</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="username" class="fs-6 text-end w-100"><span class="text-danger">*</span> Username</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <input
+                                        required
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        minlength="3"
+                                        maxlength="20"
+                                        autocomplete="off"
+                                        placeholder="Username"
+                                        aria-label="username"
+                                        aria-describedby="username"
+                                        class="form-control bg-white rounded-0 fs-6"
+                                        value="tester"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="firstname" class="fs-6 text-end w-100"><span class="text-danger">*</span> Firstname</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <input
+                                        required
+                                        type="text"
+                                        id="firstname"
+                                        name="firstname"
+                                        minlength="3"
+                                        maxlength="20"
+                                        autocomplete="off"
+                                        placeholder="Firstname"
+                                        aria-label="firstname"
+                                        aria-describedby="firstname"
+                                        class="form-control bg-white rounded-0 fs-6"
+                                        value="Ben"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="lastname" class="fs-6 text-end w-100"><span class="text-danger">*</span> Lastname</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <input
+                                        required
+                                        type="text"
+                                        id="lastname"
+                                        name="lastname"
+                                        minlength="3"
+                                        maxlength="20"
+                                        autocomplete="off"
+                                        placeholder="Nachname"
+                                        aria-label="lastname"
+                                        aria-describedby="lastname"
+                                        class="form-control bg-white rounded-0 fs-6"
+                                        value="Hohnstedter"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="birthday" class="fs-6 text-end w-100"><span class="text-danger">*</span> Birthday</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <input
+                                        required
+                                        type="date"
+                                        id="birthday"
+                                        name="birthday"
+                                        autocomplete="off"
+                                        placeholder="Geburtstag"
+                                        aria-label="birthday"
+                                        aria-describedby="birthday"
+                                        class="form-control bg-white rounded-0 fs-6"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="email" class="fs-6 text-end w-100"><span class="text-danger">*</span> E-Mail</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <input
+                                        required
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        minlength="10"
+                                        maxlength="50"
+                                        autocomplete="off"
+                                        placeholder="E-Mail"
+                                        aria-label="email"
+                                        aria-describedby="email"
+                                        class="form-control bg-white rounded-0 fs-6"
+                                        value=""
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="email" class="fs-6 text-end w-100"><span class="text-danger">*</span> Place</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <div class="input-group">
+                                        <label for="street" class="visually-hidden">Straße</label>
+                                        <input
+                                            required
+                                            type="text"
+                                            id="street"
+                                            name="street"
+                                            minlength="3"
+                                            maxlength="35"
+                                            autocomplete="off"
+                                            placeholder="Straße"
+                                            aria-label="street"
+                                            aria-describedby="street"
+                                            class="form-control bg-white rounded-0 fs-6"
+                                            value="Neustädter Str."
+                                        >
+                                        <label for="houseNumber" class="visually-hidden">Hausnummer</label>
+                                        <input
+                                            required
+                                            type="number"
+                                            id="houseNumber"
+                                            name="houseNumber"
+                                            min="1"
+                                            max="9999"
+                                            autocomplete="off"
+                                            placeholder="Hausnummer"
+                                            aria-label="houseNumber"
+                                            aria-describedby="houseNumber"
+                                            class="form-control bg-white rounded-0 fs-6"
+                                            value="1"
+                                        >
+                                        <label for="city" class="visually-hidden">Stadt</label>
+                                        <input
+                                            required
+                                            type="text"
+                                            id="city"
+                                            name="city"
+                                            minlength="3"
+                                            maxlength="35"
+                                            autocomplete="off"
+                                            placeholder="Stadt"
+                                            aria-label="city"
+                                            aria-describedby="city"
+                                            class="form-control bg-white rounded-0 fs-6"
+                                            value="Leipzig"
+                                        >
+
+                                        <label for="postalCode" class="visually-hidden">Postleitzahl</label>
+                                        <input
+                                            required
+                                            type="text"
+                                            id="postalCode"
+                                            name="postalCode"
+                                            minlength="5"
+                                            maxlength="5"
+                                            autocomplete="off"
+                                            placeholder="Postleitzahl"
+                                            aria-label="postalCode"
+                                            aria-describedby="postalCode"
+                                            class="form-control bg-white rounded-0 fs-6"
+                                            value="04315"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="card-subtitle text-info fs-5 border-bottom pb-2 mb-2">Your Password</p>
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="password" class="fs-6 text-end w-100"><span class="text-danger">*</span> Password</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <input
+                                        required
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        minlength="5"
+                                        maxlength="20"
+                                        placeholder="Passwort"
+                                        aria-label="password"
+                                        aria-describedby="password"
+                                        class="form-control bg-white rounded-0 fs-6"
+                                        value="test123"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container pt-2 pb-2">
+                            <div class="row">
+                                <div class="col-3 align-items-center d-flex">
+                                    <label for="password-confirm" class="fs-6 text-end w-100"><span class="text-danger">*</span> Password Confirm</label>
+                                </div>
+                                <div class="col-9 pe-0">
+                                    <input
+                                        required
+                                        type="password"
+                                        id="password-confirm"
+                                        name="password-confirm"
+                                        minlength="5"
+                                        maxlength="20"
+                                        placeholder="Passwort Bestätigen"
+                                        aria-label="password-confirm"
+                                        aria-describedby="password-confirm"
+                                        class="form-control bg-white rounded-0 fs-6"
+                                        value="test123"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="justify-content-end d-flex mt-1">
+                            <div class="d-flex align-items-center">
+                                <label for="privacy-policy" class="ps-2 pe-2 fs-7">I have read and agree to the
+                                    <a href="/index.php" class="text-black text-decoration-none own-link-hover">Privacy Policy</a></label>
+                                <input required type="checkbox" id="privacy-policy" aria-label="privacy-policy">
+                            </div>
+                            <button name="submit" type="submit" class="border-0 bg-info rounded-0 p-2 ms-2 own-btn-hover fs-6">
+                                Continue
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-2 pe-0">
+                {% include 'link_list.html.twig' %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
