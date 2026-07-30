@@ -1,0 +1,11 @@
+Resource/Img/
+
+Resource/Bill/
+
+/vendor/
+
+/dist/
+
+/node_modules/
+
+.idea/
