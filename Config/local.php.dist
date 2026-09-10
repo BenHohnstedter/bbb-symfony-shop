@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Config;
+
+/*
+ * Lokale Datenbank-Konfiguration.
+ * Bitte diese Datei aus Config/local.php.dist kopieren
+ * (genau als Config/local.php) und mit den lokalen Werten füllen.
+ * Sie ist von Git ausgeschlossen und enthält bewusst KEINE echten Zugangsdaten,
+ * damit keine lokalen DB-Namen oder Passwörter ins Repository gelangen.
+ */
+return [
+    'database' => [
+        'host' => '127.0.0.1',
+        'dbname' => 'DB_NAME',
+        'user' => 'DB_USER',
+        'password' => 'DB_PASSWORD',
+    ],
+];

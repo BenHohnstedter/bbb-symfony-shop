@@ -51,20 +51,22 @@ Voraussetzung: PHP 8 und ein MySQL-/MariaDB-Server.
 composer install
 ```
 
-2. Zugangsdaten für die Datenbank in `Config/local.php` setzen:
+2. Zugangsdaten für die Datenbank setzen: `Config/local.php.dist` nach
+   `Config/local.php` kopieren und dort eintragen. Die Datei `Config/local.php`
+   ist von Git ausgeschlossen, damit keine lokalen Zugangsdaten eingecheckt werden.
 
 ```php
 return [
     'database' => [
         'host'     => '127.0.0.1',
-        'dbname'   => 'bbb-b2c-shop',
-        'user'     => 'root',
-        'password' => '',
+        'dbname'   => 'DB_NAME',
+        'user'     => 'DB_USER',
+        'password' => 'DB_PASSWORD',
     ],
 ];
 ```
 
-3. Datenbank `bbb-b2c-shop` anlegen (Datenbankschema kommt aus den Entitäten).
+3. Datenbank `DB_NAME` anlegen (Datenbankschema kommt aus den Entitäten).
 
 **Lokal erreichbar unter:** `http://localhost/pu-bbb-symfony-shop/`
 

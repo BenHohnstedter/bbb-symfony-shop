@@ -9,3 +9,7 @@ Resource/Bill/
 /node_modules/
 
 .idea/
+
+# Lokale Datenbank-Konfiguration (keine Credentials/DB-Namen einchecken!).
+# Vorlage: Config/local.php.dist
+/Config/local.php
