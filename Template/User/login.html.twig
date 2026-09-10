@@ -5,7 +5,7 @@
 <main>
 
     <div class="container mt-3 mb-3 pt-2 pb-2 bg-white shadow-sm">
-        <a href="/index.php" class="pe-3 text-black own-link-hover text-decoration-none border-1 border-end border-black">
+        <a href="{{ baseUrl }}/index.php" class="pe-3 text-black own-link-hover text-decoration-none border-1 border-end border-black">
             <svg width="20" height="20" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
                 <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
@@ -14,7 +14,7 @@
         <span class="ps-3 pe-3 text-black own-link-hover border-1 border-end border-black">
             User
         </span>
-        <a href="/index.php/{{ locale }}/user/login" class="ps-3 pe-3 text-black text-decoration-none own-link-hover">
+        <a href="{{ baseUrl }}/index.php/{{ locale }}/user/login" class="ps-3 pe-3 text-black text-decoration-none own-link-hover">
             Login
         </a>
     </div>
@@ -30,7 +30,7 @@
                             By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.
                         </p>
                         <a class="col btn bg-info rounded-0 p-2 own-btn-hover fs-6"
-                           href="/index.php/{{ locale }}/user/signIn/">
+                           href="{{ baseUrl }}/index.php/{{ locale }}/user/signIn/">
                             Continue
                         </a>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="card-body">
                         <p class="card-title fs-5 text-uppercase fw-bold mb-3 pt-1 pb-3 border-bottom">returning customer</p>
                         <p class="card-subtitle fw-bold fs-7 mb-1">I am a returning customer</p>
-                        <form action="/index.php/{{ locale }}/user/checkLogin" method="POST">
+                        <form action="{{ baseUrl }}/index.php/{{ locale }}/user/checkLogin" method="POST">
                             <div class="mt-2 mb-2">
                                 <label for="username" class="">Username</label>
                                 <input
@@ -71,7 +71,7 @@
                             </div>
 
                             <div>
-                                <a href="/index.php/{{ locale }}/user/forgottenPassword/" class="text-end d-block text-black own-link-hover text-decoration-none">Forgotten Password</a>
+                                <a href="{{ baseUrl }}/index.php/{{ locale }}/user/forgottenPassword/" class="text-end d-block text-black own-link-hover text-decoration-none">Forgotten Password</a>
                             </div>
 
                             <button name="submit" type="submit" class="col btn bg-info rounded-0 p-2 own-btn-hover fs-6">

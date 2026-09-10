@@ -27,8 +27,9 @@ class RedirectService
             }
         }
 
-        $locale = '/'.$this->request->cookies->get('locale');
-        $response = new RedirectResponse('/index.php'.$locale.$header);
+        $locale = '/'.($this->request->attributes->get('_locale') ?? 'en_US');
+        $base = rtrim((string) dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+        $response = new RedirectResponse($base.'/index.php'.$locale.$header);
         $response->send();
     }
 }

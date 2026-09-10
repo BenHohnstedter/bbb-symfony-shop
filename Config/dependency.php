@@ -88,7 +88,7 @@ return [
 
         return new PDO(
             sprintf(
-                'mysql:host=%s;dbname=%s',
+                'mysql:host=%s;dbname=%s;charset=utf8mb4',
                 $dbConfig['database']['host'],
                 $dbConfig['database']['dbname']
             ),

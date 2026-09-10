@@ -51,6 +51,16 @@ class UrlService
 
     public function getUrl(): array
     {
-        return array_filter(explode('/', "$_SERVER[REQUEST_URI]"));
+        $uri  = (string) ($_SERVER['REQUEST_URI'] ?? '');
+        $base = rtrim((string) dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+
+        // Unter einem Abbildungs-Pfad (z. B. /pu-bbb-symfony-shop) sitzt die
+        // Kategorie sonst bei Index 3 statt 2 -- Controller und Aktion rutschen
+        // nach rechts. Ohne Prefix bleibt alles wie auf dem Live-Server.
+        if ($base !== '' && str_starts_with($uri, $base)) {
+            $uri = substr($uri, strlen($base));
+        }
+
+        return array_filter(explode('/', $uri));
     }
 }

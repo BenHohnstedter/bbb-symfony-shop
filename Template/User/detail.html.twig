@@ -21,7 +21,7 @@
                 <div class="container-fluid p-0">
                     <div class="row">
                         <div class="col-4 col-xxl-2 pe-0">
-                            <img src="https://bbb.shop.dev/Resource/Img/UserImg/{{ user.getProfileImg() }}" alt="{{ user.getUsername() }} Profilbild"
+                            <img src="{{ baseUrl }}/Resource/Img/UserImg/{{ user.getProfileImg() }}" alt="{{ user.getUsername() }} Profilbild"
                                  class="overflow-hidden img-fluid image-size object-fit-cover rounded-circle">
                         </div>
                         <div class="col-8 col-xxl-10 align-items-center d-flex">
@@ -51,7 +51,7 @@
             <div class="container-fluid">
                 <div class="row d-flex justify-content-center mt-3">
                     <div class="col-8 col-xl-4 mb-5">
-                        <a class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100" href="/index.php/{{ locale }}/user/edit">
+                        <a class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100" href="{{ baseUrl }}/index.php/{{ locale }}/user/edit">
                             Bearbeiten
                         </a>
                     </div>
@@ -74,7 +74,7 @@
                     {% endif %}
                     <li class="col-12 col-sm-12 col-md-6 col-lg-4 col-xxl-3 p-3 list-unstyled {{ outOfOrder }}">
                         <article class="h-100">
-                            <a href="/index.php/{{ locale }}/product/detail/{{ product.getId() }}" class="card bg-white text-decoration-none resize-item-scale d-flex rounded-0 border-0 shadow-sm">
+                            <a href="{{ baseUrl }}/index.php/{{ locale }}/product/detail/{{ product.getId() }}" class="card bg-white text-decoration-none resize-item-scale d-flex rounded-0 border-0 shadow-sm">
                                 <div class="order-2 card-body p-3">
                                     <div class="d-flex flex-column">
                                         <h3 class="order-2 card-title fs-6 opacity-75 mt-2 mb-2">{{ product.getName() }}</h3>
@@ -111,7 +111,7 @@
                         {% endif %}
                         <li class="col-12 col-sm-12 col-md-6 col-lg-4 col-xxl-3 p-3 list-unstyled {{ outOfOrder }}">
                             <article class="h-100">
-                                <a href="/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" class="card bg-white text-decoration-none resize-item-scale d-flex rounded-0 border-0 shadow-sm">
+                                <a href="{{ baseUrl }}/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" class="card bg-white text-decoration-none resize-item-scale d-flex rounded-0 border-0 shadow-sm">
                                     <div class="order-2 card-body p-3">
                                         <div class="d-flex flex-column">
                                             <h3 class="order-2 card-title fs-6 opacity-75 mt-2 mb-2">{{ product.getProduct().getName() }}</h3>

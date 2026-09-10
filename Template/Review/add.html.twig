@@ -8,7 +8,7 @@
 
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form action="/index.php/{{ locale }}/review/create/{{ product.getId() }}" method="POST"
+        <form action="{{ baseUrl }}/index.php/{{ locale }}/review/create/{{ product.getId() }}" method="POST"
               class="modal-content bg-white rounded-0 shadow-sm border-0">
             <div class="modal-header">
                 <h1 class="modal-title text-black fs-5" id="reviewModalLabel">Deine Rezension zu "{{ product.getName() }}"</h1>

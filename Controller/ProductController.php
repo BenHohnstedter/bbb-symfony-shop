@@ -42,6 +42,11 @@ class ProductController
     ) {
     }
 
+    private function frontControllerAs(): string
+    {
+        return rtrim((string) dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+    }
+
     // VIEW ACTIONS
     public function detail(PrincipalInterface $principal, Environment $twig): Response|string
     {

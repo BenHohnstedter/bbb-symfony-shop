@@ -14,7 +14,7 @@
                 {% if products == null %}
                 <div class="col-12 col-xl-10 mt-3 mb-5">
                     <p class="fs-3">...ist noch leer</p>
-                    <a href="/index.php" class=" btn text-info bg-white rounded-5 fw-bolder">
+                    <a href="{{ baseUrl }}/index.php" class=" btn text-info bg-white rounded-5 fw-bolder">
                         Finde Produkte, die dir gefallen
                     </a>
                 </div>
@@ -34,14 +34,14 @@
                             <div class="container">
                                 <div class="row">
                                     <a class="col-4 col-lg-3 p-0 bg-white image-size overflow-hidden d-flex justify-content-center rounded-1"
-                                       href="/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" target="_blank">
-                                        <img src="https://bbb.shop.dev/Resource/Img/ProductImg/{{ product.getProduct().getImagePath() }}"
+                                       href="{{ baseUrl }}/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" target="_blank">
+                                        <img src="{{ baseUrl }}/Resource/Img/ProductImg/{{ product.getProduct().getImagePath() }}"
                                              alt="Produkt {{ product.getProduct().getName() }}" class="img-fluid object-fit-scale p-2">
                                     </a>
                                     <div class="col-8 col-lg-9 ps-4 p-2">
                                         <div class="mb-3 mt-2">
                                             <a class="fs-3 text-black text-decoration-none"
-                                               href="/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" target="_blank">
+                                               href="{{ baseUrl }}/index.php/{{ locale }}/product/detail/{{ product.getProduct().getId() }}" target="_blank">
                                                 {{ product.getProduct().getName() }}</a>
                                         </div>
                                         <table>
@@ -73,7 +73,7 @@
                                             </tbody>
                                         </table>
                                         <div class="mt-1">
-                                            <a href="/index.php/{{ locale }}/checkout/delete/{{ product.getProduct().getId() }}" class="text-info">Löschen</a>
+                                            <a href="{{ baseUrl }}/index.php/{{ locale }}/checkout/delete/{{ product.getProduct().getId() }}" class="text-info">Löschen</a>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-6 col-lg-5 col-xxl-4">
-                            <a class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100" href="/index.php/{{ locale }}/checkout/checkAddress">
+                            <a class="btn text-white bg-success rounded-5 p-2 fw-bolder w-100" href="{{ baseUrl }}/index.php/{{ locale }}/checkout/checkAddress">
                                 Adresse prüfen
                             </a>
                         </div>

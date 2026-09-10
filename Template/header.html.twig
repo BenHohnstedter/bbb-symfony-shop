@@ -6,7 +6,7 @@
 <div class="modal fade" id="searchbarModal" tabindex="-1" aria-labelledby="searchbarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="/index.php/{{ locale }}/product/list" method="POST" id="filter" class="input-group">
+            <form action="{{ baseUrl }}/index.php/{{ locale }}/product/list" method="POST" id="filter" class="input-group">
                 <label for="searchbar" class="visually-hidden">nach Produkten zu suchen</label>
 
                 {% if searched['searched'][0] is not null %}
@@ -26,7 +26,7 @@
                         class="form-control rounded-start-1 bg-white fs-5 text-black"
                 >
                 <button type="submit" aria-label="Suchanfrage akzeptieren" class="input-group-text bg-info border-0">
-                    <img src="https://bbb.shop.dev/Resource/Bootstrap-icons-1.11.1/search.svg" alt="Suchanfrage akzeptieren"
+                    <img src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/search.svg" alt="Suchanfrage akzeptieren"
                          class="search-icon-size pizza-rotation">
                 </button>
             </form>
@@ -39,8 +39,8 @@
         <div class="row">
             <div class="col-2">
                 <div class="d-flex align-items-center h-100">
-                <a href="/index.php/{{ locale }}">
-                    <img src="https://bbb.shop.dev/Resource/Img/bbb-logo.png" title="Link zur BBB - Startseite" alt="Bens Batterien Börse Logo" class="img-fluid invert-img">
+                <a href="{{ baseUrl }}/index.php/{{ locale }}">
+                    <img src="{{ baseUrl }}/Resource/Img/bbb-logo.png" title="Link zur BBB - Startseite" alt="Bens Batterien Börse Logo" class="img-fluid invert-img">
                 </a>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <nav class="navbar ps-5 pe-5">
                     <ul class="d-flex justify-content-between w-100 p-0 m-0">
                         <li class="d-flex p-2">
-                            <a href="/index.php/{{ locale }}/product/list" class="text-white own-link-hover text-decoration-none text-uppercase">
+                            <a href="{{ baseUrl }}/index.php/{{ locale }}/product/list" class="text-white own-link-hover text-decoration-none text-uppercase">
                                 {{ translator.trans("products.text") }}
                             </a>
                         </li>
@@ -60,7 +60,7 @@
                                 <ul class="dropdown-menu bg-primary games-menu rounded-0">
                                     {% for category in categories %}
                                     <li class="pt-1 pb-1 ps-2 pe-2">
-                                        <a href="/index.php/{{ locale }}/product/list" class="text-black own-link-hover">
+                                        <a href="{{ baseUrl }}/index.php/{{ locale }}/product/list" class="text-black own-link-hover">
                                             <input type="radio" id="{{ category.getId() }}" name="filter[category][]" class="visually-hidden" value="{{ category.getId() }}" onclick="document.getElementById('filter').submit()" form="filter">
                                             <label for="{{ category.getId() }}" class=" w-100">{{ category.getName() }}</label>
                                         </a>
@@ -70,20 +70,20 @@
                             </div>
                         </li>
                         <li class="d-flex p-2">
-                            <a href="/index.php/{{ locale }}/user/list" class="text-white own-link-hover text-decoration-none text-uppercase">
+                            <a href="{{ baseUrl }}/index.php/{{ locale }}/user/list" class="text-white own-link-hover text-decoration-none text-uppercase">
                                 {{ translator.trans("retailer.text") }}
                             </a>
                         </li>
                         {% if principal.isBuyer() %}
                         <li class="d-flex p-2">
-                            <a href="/index.php/{{ locale }}/checkout/history" class="text-white own-link-hover text-decoration-none text-uppercase">
+                            <a href="{{ baseUrl }}/index.php/{{ locale }}/checkout/history" class="text-white own-link-hover text-decoration-none text-uppercase">
                                 {{ translator.trans("purchase_history.text") }}
                             </a>
                         </li>
                         {% endif %}
                         {% if principal.isSeller() %}
                         <li class="d-flex p-2">
-                            <a href="/index.php/{{ locale }}/product/new" class="text-white own-link-hover text-decoration-none text-uppercase">
+                            <a href="{{ baseUrl }}/index.php/{{ locale }}/product/new" class="text-white own-link-hover text-decoration-none text-uppercase">
                                 {{ translator.trans("create_product.text") }}
                             </a>
                         </li>
@@ -110,7 +110,7 @@
                                 <ul class="dropdown-menu bg-white rounded-0 mt-4 w-100">
                                     {% if principal.isSeller() or principal.isBuyer() %}
                                     <li>
-                                        <a class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2" href="/index.php/{{ locale }}/user/logout">
+                                        <a class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2" href="{{ baseUrl }}/index.php/{{ locale }}/user/logout">
                                             <svg fill="currentColor" width="14" height="14" class="bi bi-search me-1" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
                                                 <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
@@ -119,7 +119,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/index.php/{{ locale }}/user/detail/{{ principal.getId() }}" class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2">
+                                        <a href="{{ baseUrl }}/index.php/{{ locale }}/user/detail/{{ principal.getId() }}" class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2">
                                             <svg fill="currentColor" width="14" height="14" class="bi bi-search me-1" viewBox="0 0 16 16">
                                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
@@ -129,7 +129,7 @@
                                     </li>
                                     {% else %}
                                     <li>
-                                        <a class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2" href="/index.php/{{ locale }}/user/register">
+                                        <a class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2" href="{{ baseUrl }}/index.php/{{ locale }}/user/register">
                                             <svg fill="currentColor" width="14" height="14" class="bi bi-search me-1" viewBox="0 0 16 16">
                                                 <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                                                 <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
@@ -138,7 +138,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2" href="/index.php/{{ locale }}/user/login">
+                                        <a class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2" href="{{ baseUrl }}/index.php/{{ locale }}/user/login">
                                             <svg fill="currentColor" width="14" height="14" class="bi bi-search me-1" viewBox="0 0 16 16">
                                                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
                                             </svg>
@@ -153,17 +153,17 @@
                                             </span>
                                             <ul class="dropdown-menu bg-primary games-menu rounded-0">
                                                 <li>
-                                                    <a href="/index.php/de_DE" class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2">
+                                                    <a href="{{ baseUrl }}/index.php/de_DE" class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2">
                                                         Deutsch
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/index.php/en_US" class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2">
+                                                    <a href="{{ baseUrl }}/index.php/en_US" class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2">
                                                         English
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/index.php/fi_FI" class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2">
+                                                    <a href="{{ baseUrl }}/index.php/fi_FI" class="text-black own-link-hover text-decoration-none d-block pt-1 pb-1 ps-2 pe-2">
                                                         Loppuun
                                                     </a>
                                                 </li>
@@ -174,7 +174,7 @@
                             </div>
                         </li>
                         <li class="d-flex p-2 ps-3 pe-3">
-                            <a href="/index.php/{{ locale }}/checkout/list" class="text-white own-link-hover text-decoration-none text-uppercase">
+                            <a href="{{ baseUrl }}/index.php/{{ locale }}/checkout/list" class="text-white own-link-hover text-decoration-none text-uppercase">
                                 <svg fill="currentColor" class="bi bi-search own-svg-size" viewBox="0 0 16 16">
                                     <path d="M8 1a2 2 0 0 1 2 2v2H6V3a2 2 0 0 1 2-2m3 4V3a3 3 0 1 0-6 0v2H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5zm-1 1v1.5a.5.5 0 0 0 1 0V6h1.639a.5.5 0 0 1 .494.426l1.028 6.851A1.5 1.5 0 0 1 12.678 15H3.322a1.5 1.5 0 0 1-1.483-1.723l1.028-6.851A.5.5 0 0 1 3.36 6H5v1.5a.5.5 0 1 0 1 0V6z"/>
                                 </svg>

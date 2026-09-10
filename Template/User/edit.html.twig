@@ -11,7 +11,7 @@
 {% endif %}
 <main class="container-fluid mt-3">
 
-    <form action="/index.php/{{ locale }}/user/update/{{ principal.getId() }}" method="POST" enctype="multipart/form-data" class="row ps-3 pe-3">
+    <form action="{{ baseUrl }}/index.php/{{ locale }}/user/update/{{ principal.getId() }}" method="POST" enctype="multipart/form-data" class="row ps-3 pe-3">
         <div class="col-12 mt-3">
             <div class="border border-white border-3 bg-white rounded-3 p-3">
                 <div class="container-fluid p-0">
