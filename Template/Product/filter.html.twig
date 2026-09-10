@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-1 p-0 d-flex align-items-center">
                                 <button type="submit" form="filter" class="bg-white border-0 p-0 mx-auto">
-                                    <img src="/Resource/Bootstrap-icons-1.11.1/caret-right-fill.svg" class="star-icon-size">
+                                    <img src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/caret-right-fill.svg" class="star-icon-size">
                                 </button>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                    {{ checked }}
                                 >
                                 <label for="star{{ i }}" class="star-label">
-                                    <img src="/Resource/Bootstrap-icons-1.11.1/{{ imgStar }}" alt="{{ i }} Sternebewertung" class="small-icon">
+                                    <img src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/{{ imgStar }}" alt="{{ i }} Sternebewertung" class="small-icon">
                                 </label>
                             </div>
                             {% endfor %}
@@ -154,6 +154,6 @@
         </div>
     </div>
     <button class="navbar-toggler border-0 collapsed w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterDiv" title="Produkt Filterung ausklappen">
-        <img src="/Resource/Bootstrap-icons-1.11.1/caret-down-fill.svg" alt="Produkt Filterung Button" class="icon-size">
+        <img src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/caret-down-fill.svg" alt="Produkt Filterung Button" class="icon-size">
     </button>
 </aside>

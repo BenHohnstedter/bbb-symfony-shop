@@ -21,7 +21,7 @@
                             <div class="container-fluid h-100">
                                 <div class="row justify-content-center d-flex h-100">
                                     <div class="col-10 col-lg-8 col-xxl-6">
-                                        <img src="/Resource/Img/UserImg/{{ principal.getProfileImg() }}" alt="Profil Bild von {{ principal.getUsername() }}"
+                                        <img src="{{ baseUrl }}/Resource/Img/UserImg/{{ principal.getProfileImg() }}" alt="Profil Bild von {{ principal.getUsername() }}"
                                              class="overflow-hidden img-fluid image-size object-fit-cover rounded-circle mt-4 mb-4 w-100">
                                     </div>
                                     <div class="col-12 d-flex">
@@ -49,7 +49,7 @@
                                         <!-- SALES PLACE -->
                                         <div class="input-group mt-4 mb-4">
                                             <span class="input-group-text">
-                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/buildings-fill.svg" alt="adresse icon">
+                                                <img class="footer-icon-size" src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/buildings-fill.svg" alt="adresse icon">
                                             </span>
                                             <div class="form-control container-fluid p-0">
                                                 <div class="row">
@@ -133,7 +133,7 @@
                                         <!-- CAPTION -->
                                         <div class="input-group mt-4 mb-4 own-edit-user-textarea-height">
                                             <span class="input-group-text" id="caption">
-                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/card-text.svg" alt="caption icon">
+                                                <img class="footer-icon-size" src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/card-text.svg" alt="caption icon">
                                             </span>
                                             <label for="caption" class="visually-hidden">Beschreibung</label>
                                             <textarea
@@ -159,7 +159,7 @@
                                     <div class="col-12 col-md-4 col-lg-12">
                                         <div class="input-group mt-4 mb-4 user-edit-filter">
                                             <span class="input-group-text">
-                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/person-fill.svg" alt="username icon">
+                                                <img class="footer-icon-size" src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/person-fill.svg" alt="username icon">
                                             </span>
                                             <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getUsername() }}</p>
                                         </div>
@@ -167,7 +167,7 @@
                                     <div class="col-12 col-md-4 col-lg-12">
                                         <div class="input-group mt-4 mb-4 user-edit-filter">
                                             <span class="input-group-text">
-                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/person-raised-hand.svg" alt="firstname icon">
+                                                <img class="footer-icon-size" src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/person-raised-hand.svg" alt="firstname icon">
                                             </span>
                                             <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getFirstname() }}</p>
                                         </div>
@@ -175,7 +175,7 @@
                                     <div class="col-12 col-md-4 col-lg-12">
                                         <div class="input-group mt-4 mb-4 user-edit-filter">
                                             <span class="input-group-text">
-                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/person-vcard-fill.svg" alt="lastname icon">
+                                                <img class="footer-icon-size" src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/person-vcard-fill.svg" alt="lastname icon">
                                             </span>
                                             <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getLastname() }}</p>
                                         </div>
@@ -183,7 +183,7 @@
                                     <div class="col-12 col-md-4 col-lg-12">
                                         <div class="input-group mt-4 mb-4 user-edit-filter">
                                             <span class="input-group-text">
-                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/cake2-fill.svg" alt="birthday icon">
+                                                <img class="footer-icon-size" src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/cake2-fill.svg" alt="birthday icon">
                                             </span>
                                             <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getBirthday() | date("m.d.Y") }}</p>
                                         </div>
@@ -191,7 +191,7 @@
                                     <div class="col-12 col-md-4 col-lg-12">
                                         <div class="input-group mt-4 mb-4 user-edit-filter">
                                             <span class="input-group-text">
-                                                <img class="footer-icon-size" src="/Resource/Bootstrap-icons-1.11.1/envelope-fill.svg" alt="email icon">
+                                                <img class="footer-icon-size" src="{{ baseUrl }}/Resource/Bootstrap-icons-1.11.1/envelope-fill.svg" alt="email icon">
                                             </span>
                                             <p class="form-control bg-white text-black fs-5 m-0 text-break">{{ principal.getEmail() }}</p>
                                         </div>

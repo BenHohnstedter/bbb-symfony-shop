@@ -141,6 +141,7 @@ return [
             'flashes' => $container->get(Session::class)->getFlashBag()->all(),
             'locale' => $container->get('locale'),
             'searched' => $container->get(Request::class)->get('filter', []),
+            'baseUrl' => rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\'),
             'categories' => $container->get(CategoryRepo::class)->findAll(),
         ];
     },

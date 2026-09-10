@@ -12,7 +12,7 @@
                     <p class="d-inline fs-7 m-0 h-100 align-middle ps-1">- {{ review.getCreatedAt() }}</p>
                 </div>
                 <div class="pt-2 pb-2 border-bottom d-flex align-items-center">
-                    <img src="/Resource/Img/UserImg/{{ review.getUserObject().getProfileImg() }}" alt="{{ review.getUserObject().getUsername() }}" class="icon-size rounded-circle">
+                    <img src="{{ baseUrl }}/Resource/Img/UserImg/{{ review.getUserObject().getProfileImg() }}" alt="{{ review.getUserObject().getUsername() }}" class="icon-size rounded-circle">
                     <p class="ps-2 m-0 fs-6"> {{ review.getUserObject().getUsername() }}</p>
                 </div>
                 <p class="card-title fs-5 m-0 pt-1">{{ review.getTitle() }}</p>

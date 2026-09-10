@@ -29,7 +29,7 @@
                     Deine Bestellung vom {{ userOrder.getLastUpdate() }} Uhr)
                 </button>
                 <div class="collapse p-0 m-0 bg-white p-3 rounded-bottom-3" id="orderCollapse{{ i }}">
-                    <a href="/Resource/Bill/{{ userOrder.getPdf() }}" download class="btn text-info bg-white rounded-5 p-2 mb-4 fw-bolder w-100">
+                    <a href="{{ baseUrl }}/Resource/Bill/{{ userOrder.getPdf() }}" download class="btn text-info bg-white rounded-5 p-2 mb-4 fw-bolder w-100">
                         PDF Download
                     </a>
                     <ul>
