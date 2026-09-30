@@ -5,7 +5,7 @@ RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts --no-p
 
 FROM php:8.2-apache
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libfreetype6-dev libjpeg62-turbo-dev libpng-dev libwebp-dev libzip-dev libicu-dev \
+        libfreetype6-dev libjpeg62-turbo-dev libpng-dev libwebp-dev libzip-dev libicu-dev libonig-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-webp --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql mbstring zip intl
