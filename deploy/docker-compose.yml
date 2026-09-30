@@ -1,0 +1,27 @@
+name: bbb-symfony-shop
+
+services:
+  bbb-symfony-shop:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: bbb-symfony-shop
+    restart: unless-stopped
+    ports:
+      - "8084:80"
+    volumes:
+      - bills:/var/www/html/Resource/Bill
+      - imgs:/var/www/html/Resource/Img
+    labels:
+      - "homelab.project=bbb-symfony-shop"
+      - "homelab.port=8084"
+    networks:
+      - homelab
+
+volumes:
+  bills:
+  imgs:
+
+networks:
+  homelab:
+    external: true
